@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="calculator">
+        <div class="display">
+            <h1>Dishita-Simform-Calculator</h1>
+            <input type="text" id="screen" readonly>
+        </div>
+        <div class="buttons">
+
+            <button class="btn" onclick="clearScreen()">C</button>
+            <button class="btn" onclick="deleteLast()">DEL</button>
+            <button class="btn" onclick="percentage()">%</button>
+            <button class="btn" onclick="appendToScreen('/')">/</button>
+
+            <button class="btn" onclick="appendToScreen('7')">7</button>
+            <button class="btn" onclick="appendToScreen('8')">8</button>
+            <button class="btn" onclick="appendToScreen('9')">9</button>
+            <button class="btn" onclick="appendToScreen('*')">*</button>
+
+            <button class="btn" onclick="appendToScreen('4')">4</button>
+            <button class="btn" onclick="appendToScreen('5')">5</button>
+            <button class="btn" onclick="appendToScreen('6')">6</button>
+            <button class="btn" onclick="appendToScreen('-')">-</button>
+
+            <button class="btn" onclick="appendToScreen('1')">1</button>
+            <button class="btn" onclick="appendToScreen('2')">2</button>
+            <button class="btn" onclick="appendToScreen('3')">3</button>
+            <button class="btn" onclick="appendToScreen('+')">+</button>
+
+            <button class="btn" onclick="appendToScreen('0')">0</button>
+            <button class="btn" onclick="appendToScreen('.')">.</button>
+            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn" onclick="square()">x²</button>
+            
+            <button class="btn" onclick="cube()">x³</button>
+            <button class="btn" onclick="squareRoot()">√</button>
+            <button class="btn" onclick="cubicRoot()">³√</button>
+            <button class="btn" onclick="reciprocal()">1/x</button>
+            
+            <button class="btn" onclick="mod()">mod</button>
+            <button class="btn" onclick="memoryAdd()">M+</button>
+            <button class="btn" onclick="memorySubtract()">M-</button>
+            <button class="btn" onclick="memoryStore()">MS</button>
+            
+            <button class="btn" onclick="memoryRecall()">MR</button>
+            <button class="btn" onclick="memoryClear()">MC</button>
+            <button class="btn" onclick="factorial()">x!</button>
+            <button class="btn" onclick="plusminus()">+/-</button>
+ 
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
