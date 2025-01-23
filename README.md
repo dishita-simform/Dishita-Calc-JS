@@ -12,4 +12,4 @@ To view this calculator copy this link on a new tab.
 ```
 ## Screenshots
 
-![Image](https://github.com/user-attachments/assets/24acc311-52dc-4999-9cb8-7d0acb19eebb)
+![Image](https://github.com/user-attachments/assets/8ca631ee-24ef-4380-ae1d-848334d19ea0)
