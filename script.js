@@ -40,6 +40,7 @@ function memoryAdd() {
     try {
         memory += parseFloat(screen.value);
         updateMemoryDisplay();
+        screen.value='';
     } catch (error) {
         screen.value = "Error";
     }
@@ -49,6 +50,7 @@ function memorySubtract() {
     try {
         memory -= parseFloat(screen.value);
         updateMemoryDisplay();
+        screen.value='';
     } catch (error) {
         screen.value = "Error";
     }
@@ -58,6 +60,7 @@ function memoryStore() {
     try {
         memory = parseFloat(screen.value);
         updateMemoryDisplay();
+        screen.value='';
     } catch (error) {
         screen.value = "Error";
     }
