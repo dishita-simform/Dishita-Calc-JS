@@ -1,8 +1,6 @@
 let screen = document.getElementById("screen");
 let memory = 0;
-let memoryDisplay = document.getElementById("memoryDisplay"); // Memory display element
-let firstValue = null; // Store the first number (x) for root calculation
-let isRootMode = false; // Flag to check if the user is in root calculation mode
+let memoryDisplay = document.getElementById("memoryDisplay");
 
 // Helper function to round off results to 4 decimal places
 function roundToFour(value) {
@@ -17,40 +15,27 @@ function appendToScreen(value) {
 // Clear the screen
 function clearScreen() {
     screen.value = "";
-    firstValue = null;  // Reset the stored value for root calculation
-    isRootMode = false; // Reset the root calculation mode
 }
 
 // Delete the last character
 function deleteLast() {
-    if(screen.value == "Error" || screen.value == "NaN") {
+    if (screen.value === "Error" || screen.value === "NaN") {
         screen.value = "";
     } else {
         screen.value = screen.value.slice(0, -1);
     }
 }
 
-// Calculate the result of the expression
+// Function to evaluate the expression
 function calculate() {
-    if (isRootMode) {
-        let y = parseFloat(screen.value); // This is the second value (y)
-        if (!isNaN(firstValue) && !isNaN(y) && y !== 0) {
-            screen.value = roundToFour(Math.pow(firstValue, 1 / y));
-        } else {
-            screen.value = "Error";
-        }
-        firstValue = null;  // Reset the stored value after calculation
-        isRootMode = false; // Exit root mode
-    } else {
-        try {
-            screen.value = roundToFour(eval(screen.value));
-        } catch (error) {
-            screen.value = "Error";
-        }
+    try {
+        screen.value = roundToFour(eval(screen.value)); // Using eval to evaluate the expression
+    } catch (error) {
+        screen.value = "Error";
     }
 }
 
-// Memory functions (Add, Subtract, Store, Recall, Clear)
+// Memory functions
 function memoryAdd() {
     try {
         memory += parseFloat(screen.value);
@@ -88,12 +73,11 @@ function memoryClear() {
     updateMemoryDisplay();
 }
 
-// Update the memory display
 function updateMemoryDisplay() {
     memoryDisplay.innerHTML = `Memory: ${roundToFour(memory)}`;
 }
 
-// Operations
+// Scientific operations
 function square() {
     try {
         screen.value = roundToFour(Math.pow(parseFloat(screen.value), 2));
@@ -102,42 +86,6 @@ function square() {
     }
 }
 
-function reciprocal() {
-    try {
-        let value = parseFloat(screen.value);
-        if (value !== 0) {
-            screen.value = roundToFour(1 / value);
-        } else {
-            screen.value = "Error";
-        }
-    } catch (error) {
-        screen.value = "Error";
-    }
-}
-
-function percentage() {
-    try {
-        let currentValue = parseFloat(screen.value);
-        if (!isNaN(currentValue)) {
-            screen.value = roundToFour(currentValue / 100);
-        } else {
-            screen.value = "Error";
-        }
-    } catch (error) {
-        screen.value = "Error";
-    }
-}
-
-// Cube the current value
-function cube() {
-    try {
-        screen.value = roundToFour(Math.pow(parseFloat(screen.value), 3));
-    } catch (error) {
-        screen.value = "Error";
-    }
-}
-
-// Square root of the current value
 function squareRoot() {
     try {
         screen.value = roundToFour(Math.sqrt(parseFloat(screen.value)));
@@ -146,7 +94,14 @@ function squareRoot() {
     }
 }
 
-// Cube root of the current value
+function cube() {
+    try {
+        screen.value = roundToFour(Math.pow(parseFloat(screen.value), 3));
+    } catch (error) {
+        screen.value = "Error";
+    }
+}
+
 function cubicRoot() {
     try {
         screen.value = roundToFour(Math.cbrt(parseFloat(screen.value)));
@@ -155,74 +110,59 @@ function cubicRoot() {
     }
 }
 
-// Factorial of the current value
 function factorial() {
     try {
-        let value = parseInt(screen.value); // Get the current value from the screen
-        if (value < 0) {
-            screen.value = "Error"; // Factorial is not defined for negative numbers
-        } else if (value === 0 || value === 1) {
-            screen.value = 1; // 0! = 1 and 1! = 1
-        } else {
+        let value = parseInt(screen.value);
+        if (value >= 0) {
             let result = 1;
             for (let i = 1; i <= value; i++) {
                 result *= i;
             }
-            screen.value = roundToFour(result); // Display the result rounded to 4 decimal places
+            screen.value = result;
+        } else {
+            screen.value = "Error";
         }
     } catch (error) {
         screen.value = "Error";
     }
 }
 
-// Toggle the sign of the current value (positive to negative, or vice versa)
 function plusminus() {
     try {
-        let currentValue = parseFloat(screen.value);  // Get the current value on the screen
-        if (!isNaN(currentValue)) {  // Check if it's a valid number
-            screen.value = roundToFour(currentValue * -1); // Multiply by -1 to toggle the sign
-        } else {
-            screen.value = "Error";  // Display an error if it's not a valid number
-        }
+        screen.value = roundToFour(parseFloat(screen.value) * -1);
     } catch (error) {
-        screen.value = "Error";  // If an error occurs, show "Error"
+        screen.value = "Error";
     }
 }
 
-// Listen for keyboard input
+// Handle keyboard input
 document.addEventListener("keydown", function(event) {
-    let key = event.key;
-    if (key >= '0' && key <= '9') {
-        appendToScreen(key); // Numbers 0-9
-    } else if (key === '+' || key === '-' || key === '*' || key === '/') {
-        appendToScreen(key); // Operators
-    } else if (key === 'Enter') {
-        calculate(); // Equal sign (Enter key)
-    } else if (key === 'Backspace') {
-        deleteLast(); // Delete (Backspace key)
-    } else if (key === 'c' || key === 'C') {
-        clearScreen(); // Clear (C or c key)
-    } else if (key === 's' || key === 'S') {
-        square(); // Square (S or s key)
-    } else if (key === 'r' || key === 'R') {
-        squareRoot(); // Square Root (R or r key)
-    } else if (key === 't' || key === 'T') {
-        cube(); // Cube (T or t key)
-    } else if (key === 'p' || key === 'P') {
-        percentage(); // Percentage (P or p key)
-    } else if (key === 'm') {
-        memoryRecall(); // Memory recall (M or m key)
-    } else if (key === 'z' || key === 'Z') {
-        memoryStore(); // Memory store (Z or z key)
-    } else if (key === 'x' || key === 'X') {
-        memoryClear(); // Memory clear (X or x key)
-    } else if (key === 'a' || key === 'A') {
-        memoryAdd(); // Memory add (A or a key)
-    } else if (key === 'b' || key === 'B') {
-        memorySubtract(); // Memory subtract (B or b key)
-    } else if (key === 'f' || key === 'F') {
-        factorial(); // Factorial (F or f key)
-    } else if (key === 'm' || key === 'M') {
-        plusminus(); // Plus/Minus (M or m key for clarity)
+    if (event.key >= '0' && event.key <= '9') {
+        appendToScreen(event.key);
+    } else if (event.key === 'Enter') {
+        calculate();
+    } else if (event.key === 'Backspace') {
+        deleteLast();
+    } else if (event.key === '.') {
+        appendToScreen('.');
+    } else if (event.key === '+') {
+        appendToScreen('+');
+    } else if (event.key === '-') {
+        appendToScreen('-');
+    } else if (event.key === '*') {
+        appendToScreen('*');
+    } else if (event.key === '/') {
+        appendToScreen('/');
+    } else if (event.key === '%') {
+        percentage();
     }
 });
+
+// Percentage function
+function percentage() {
+    try {
+        screen.value = roundToFour(parseFloat(screen.value) / 100);
+    } catch (error) {
+        screen.value = "Error";
+    }
+}

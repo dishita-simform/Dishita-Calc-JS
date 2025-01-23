@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 #memoryDisplay {
     color: rgb(255, 255, 255);
     font-size: 18px;
@@ -22,6 +23,7 @@ body {
 h1{
     color: rgb(255, 255, 255);
     margin-bottom: 20px;
+    text-align: center;
  }
 
 .calculator {
@@ -53,6 +55,14 @@ h1{
     grid-gap: 10px;
 }
 
+/* Style for the row containing the "C" and "DEL" buttons */
+.buttons .top-row {
+    display: 100%;
+    justify-content: space-between;  /* To ensure the buttons are spread across */
+    width: 100%;  /* Ensure the buttons take up full width */
+    margin-bottom: 10px;
+}
+
 .btn {
     background-color: #f1f1f1;
     border: 2px solid #ccc;
@@ -68,13 +78,13 @@ h1{
     background-color: #e0e0e0;
 }
 
-.equal{
+/* Style the equal button */
+.equal {
     border: 0px;
     color: black;
     background-color: rgb(255, 208, 0);
- }
+}
 
-
-.equal:hover{
+.equal:hover {
     background-color: rgb(255, 208, 0);
- }
+}

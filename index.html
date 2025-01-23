@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scientific Calculator</title>
+    <link rel="icon" href="https://www.flaticon.com/free-icon/calculator_2344132?term=calculator&page=1&position=52&origin=tag&related_id=2344132">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,28 +18,27 @@
             <div id="memoryDisplay">Memory: 0</div> <!-- Memory display -->
         </div>
         <div class="buttons">
-            <!-- Buttons here -->
             <button class="btn" onclick="clearScreen()">C</button>
-            <button class="btn" onclick="deleteLast()">DEL</button>
-            <button class="btn" onclick="percentage()">%</button>
-            <button class="btn" onclick="appendToScreen('/')">/</button>
+            <button class="btn" onclick="deleteLast()"><i class="fas fa-backspace"></i> DEL</button>
+            <button class="btn" onclick="percentage()"><i class="fas fa-percent"></i></button>
+            <button class="btn" onclick="appendToScreen('/')"><i class="fas fa-divide"></i></button>
 
             <button class="btn" onclick="appendToScreen('7')">7</button>
             <button class="btn" onclick="appendToScreen('8')">8</button>
             <button class="btn" onclick="appendToScreen('9')">9</button>
-            <button class="btn" onclick="appendToScreen('*')">*</button>
+            <button class="btn" onclick="appendToScreen('*')"><i class="fas fa-times"></i></button>
 
             <button class="btn" onclick="appendToScreen('4')">4</button>
             <button class="btn" onclick="appendToScreen('5')">5</button>
             <button class="btn" onclick="appendToScreen('6')">6</button>
-            <button class="btn" onclick="appendToScreen('-')">-</button>
+            <button class="btn" onclick="appendToScreen('-')"><i class="fas fa-minus"></i></button>
 
             <button class="btn" onclick="appendToScreen('1')">1</button>
             <button class="btn" onclick="appendToScreen('2')">2</button>
             <button class="btn" onclick="appendToScreen('3')">3</button>
-            <button class="btn" onclick="appendToScreen('+')">+</button>
+            <button class="btn" onclick="appendToScreen('+')"><i class="fas fa-plus"></i></button>
 
-            <button class="btn" onclick="appendToScreen('.')">.</button>
+            <button class="btn" onclick="appendToScreen('.')"><i class="fas fa-period"></i>.</button>
             <button class="btn" onclick="appendToScreen('0')">0</button>
             <button class="btn" onclick="factorial()">x!</button>
             <button class="btn" onclick="square()">x²</button>
@@ -45,7 +47,7 @@
             <button class="btn" onclick="squareRoot()">√</button>
             <button class="btn" onclick="cubicRoot()">³√</button>
             <button class="btn" onclick="reciprocal()">1/x</button>
-            
+
             <button class="btn" onclick="mod()">mod</button>
             <button class="btn" onclick="memoryAdd()">M+</button>
             <button class="btn" onclick="memorySubtract()">M-</button>
@@ -54,10 +56,11 @@
             <button class="btn" onclick="memoryRecall()">MR</button>
             <button class="btn" onclick="memoryClear()">MC</button>
             <button class="btn" onclick="plusminus()">+/-</button>
-            <button class="btn equal" onclick="calculate()">=</button>
+            <button class="btn equal" onclick="calculate()"><i class="fas fa-equals"></i></button>
         </div>
     </div>
 
+    <!-- Link to your external JS file (script.js) -->
     <script src="script.js"></script>
 </body> 
 </html>
