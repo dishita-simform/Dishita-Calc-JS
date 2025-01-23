@@ -1,5 +1,6 @@
 let screen = document.getElementById("screen");
 let memory = 0;
+let memoryDisplay = document.getElementById("memoryDisplay"); // Memory display element
 let firstValue = null; // Store the first number (x) for root calculation
 let isRootMode = false; // Flag to check if the user is in root calculation mode
 
@@ -22,7 +23,11 @@ function clearScreen() {
 
 // Delete the last character
 function deleteLast() {
-    screen.value = screen.value.slice(0, -1);
+    if(screen.value == "Error" || screen.value == "NaN") {
+        screen.value = "";
+    } else {
+        screen.value = screen.value.slice(0, -1);
+    }
 }
 
 // Calculate the result of the expression
@@ -45,7 +50,50 @@ function calculate() {
     }
 }
 
-// Square the current value
+// Memory functions (Add, Subtract, Store, Recall, Clear)
+function memoryAdd() {
+    try {
+        memory += parseFloat(screen.value);
+        updateMemoryDisplay();
+    } catch (error) {
+        screen.value = "Error";
+    }
+}
+
+function memorySubtract() {
+    try {
+        memory -= parseFloat(screen.value);
+        updateMemoryDisplay();
+    } catch (error) {
+        screen.value = "Error";
+    }
+}
+
+function memoryStore() {
+    try {
+        memory = parseFloat(screen.value);
+        updateMemoryDisplay();
+    } catch (error) {
+        screen.value = "Error";
+    }
+}
+
+function memoryRecall() {
+    screen.value = memory;
+}
+
+function memoryClear() {
+    memory = 0;
+    screen.value = "0";
+    updateMemoryDisplay();
+}
+
+// Update the memory display
+function updateMemoryDisplay() {
+    memoryDisplay.innerHTML = `Memory: ${roundToFour(memory)}`;
+}
+
+// Operations
 function square() {
     try {
         screen.value = roundToFour(Math.pow(parseFloat(screen.value), 2));
@@ -54,7 +102,6 @@ function square() {
     }
 }
 
-// Reciprocal (1/x)
 function reciprocal() {
     try {
         let value = parseFloat(screen.value);
@@ -68,57 +115,17 @@ function reciprocal() {
     }
 }
 
-// Percentage (%) - Divide by 100 and add '*' for further input
 function percentage() {
     try {
         let currentValue = parseFloat(screen.value);
         if (!isNaN(currentValue)) {
-            screen.value = roundToFour(currentValue / 100) + "*";
+            screen.value = roundToFour(currentValue / 100);
         } else {
             screen.value = "Error";
         }
     } catch (error) {
         screen.value = "Error";
     }
-}
-
-// Modulus (mod) - Acts like percentage for modulus calculation
-function mod() {
-    appendToScreen("%");
-}
-
-// Memory functions (Add, Subtract, Store, Recall, Clear)
-function memoryAdd() {
-    try {
-        memory += parseFloat(screen.value);
-    } catch (error) {
-        screen.value = "Error";
-    }
-}
-
-function memorySubtract() {
-    try {
-        memory -= parseFloat(screen.value);
-    } catch (error) {
-        screen.value = "Error";
-    }
-}
-
-function memoryStore() {
-    try {
-        memory = parseFloat(screen.value);
-    } catch (error) {
-        screen.value = "Error";
-    }
-}
-
-function memoryRecall() {
-    screen.value = memory;
-}
-
-function memoryClear() {
-    memory = 0;
-    screen.value = "0";
 }
 
 // Cube the current value
@@ -216,6 +223,6 @@ document.addEventListener("keydown", function(event) {
     } else if (key === 'f' || key === 'F') {
         factorial(); // Factorial (F or f key)
     } else if (key === 'm' || key === 'M') {
-        plssminus(); // Plus/Minus (M or m key)
+        plusminus(); // Plus/Minus (M or m key for clarity)
     }
 });

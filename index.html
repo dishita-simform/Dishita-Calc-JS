@@ -12,9 +12,10 @@
         <div class="display">
             <h1>Dishita-Simform-Calculator</h1>
             <input type="text" id="screen" readonly>
+            <div id="memoryDisplay">Memory: 0</div> <!-- Memory display -->
         </div>
         <div class="buttons">
-
+            <!-- Buttons here -->
             <button class="btn" onclick="clearScreen()">C</button>
             <button class="btn" onclick="deleteLast()">DEL</button>
             <button class="btn" onclick="percentage()">%</button>
@@ -35,9 +36,9 @@
             <button class="btn" onclick="appendToScreen('3')">3</button>
             <button class="btn" onclick="appendToScreen('+')">+</button>
 
-            <button class="btn" onclick="appendToScreen('0')">0</button>
             <button class="btn" onclick="appendToScreen('.')">.</button>
-            <button class="btn" onclick="calculate()">=</button>
+            <button class="btn" onclick="appendToScreen('0')">0</button>
+            <button class="btn" onclick="factorial()">x!</button>
             <button class="btn" onclick="square()">x²</button>
             
             <button class="btn" onclick="cube()">x³</button>
@@ -52,12 +53,11 @@
             
             <button class="btn" onclick="memoryRecall()">MR</button>
             <button class="btn" onclick="memoryClear()">MC</button>
-            <button class="btn" onclick="factorial()">x!</button>
             <button class="btn" onclick="plusminus()">+/-</button>
- 
+            <button class="btn equal" onclick="calculate()">=</button>
         </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+</body> 
 </html>
