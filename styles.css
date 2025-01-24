@@ -1,90 +1,90 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 #memoryDisplay {
-    color: rgb(255, 255, 255);
-    font-size: 18px;
-    text-align: center;
-    font-weight: bold;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #525252;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #525252;
 }
 
-h1{
-    color: rgb(255, 255, 255);
-    margin-bottom: 20px;
-    text-align: center;
- }
+h1 {
+  color: rgb(255, 255, 255);
+  margin-bottom: 20px;
+  text-align: center;
+}
 
 .calculator {
-    background-color: #000000;
-    border-radius: 25px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  background-color: #000000;
+  border-radius: 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .display {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 #screen {
-    width: 100%;
-    height: 50px;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: right;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
+  width: 100%;
+  height: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: right;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
 }
 
 /* Style for the row containing the "C" and "DEL" buttons */
 .buttons .top-row {
-    display: 100%;
-    justify-content: space-between;  /* To ensure the buttons are spread across */
-    width: 100%;  /* Ensure the buttons take up full width */
-    margin-bottom: 10px;
+  display: 100%;
+  justify-content: space-between; /* To ensure the buttons are spread across */
+  width: 100%; /* Ensure the buttons take up full width */
+  margin-bottom: 10px;
 }
 
 .btn {
-    background-color: #f1f1f1;
-    border: 2px solid #ccc;
-    font-weight: bold;
-    border-radius: 25px;
-    font-size: 18px;
-    padding: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #f1f1f1;
+  border: 2px solid #ccc;
+  font-weight: bold;
+  border-radius: 25px;
+  font-size: 18px;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 /* Style the equal button */
 .equal {
-    border: 0px;
-    color: black;
-    background-color: rgb(255, 208, 0);
+  border: 0px;
+  color: black;
+  background-color: rgb(255, 208, 0);
 }
 
 .equal:hover {
-    background-color: rgb(255, 208, 0);
+  background-color: rgb(255, 208, 0);
 }
