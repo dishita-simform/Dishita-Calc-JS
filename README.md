@@ -3,6 +3,11 @@
 
 A simple calculator built with HTML, CSS, and JS to calculate basic mathematical functions.
 
+## Tech Stack
+1. HTML
+2. CSS
+3. JavaScript
+
 ## Deployment
 
 To view this calculator copy this link on a new tab.
