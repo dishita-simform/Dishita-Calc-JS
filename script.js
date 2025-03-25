@@ -2,16 +2,25 @@ let screen = document.getElementById("screen");
 let memory = 0;
 let memoryDisplay = document.getElementById("memoryDisplay");
 
-// Append values to the screen
 function appendToScreen(value) {
-    // If the screen already has a result and the user is entering a number, clear it
-    if (!isNaN(screen.value) && screen.value !== "Error" && screen.value !== "NaN" && value !== '+' && value !== '-' && value !== '*' && value !== '/') {
-        screen.value = ''; // Clear the previous result
+    let screen = document.getElementById("screen");
+
+    // If the screen contains an error, reset it before appending
+    if (screen.value === "Error" || screen.value === "NaN") {
+        screen.value = '';
     }
 
-    // Add multiplication between number and function (but not inside brackets)
-    if (screen.value && /\d$/.test(screen.value) && /log/.test(value) && !screen.value.includes('(')) {
-        screen.value += "*"; // Add multiplication if a number is followed by log
+    // If the screen contains a result (not an operator) and the user enters a number, clear it
+    if (!isNaN(screen.value) && screen.dataset.result === "true" && !isNaN(value)) {
+        screen.value = ''; // Clear only if a new number is entered after a full calculation
+    }
+
+    // Reset the result flag
+    screen.dataset.result = "false";
+
+    // Add multiplication between a number and a function like log (but not inside brackets)
+    if (screen.value && /\d$/.test(screen.value) && /log|sin|cos|tan/.test(value) && !screen.value.includes('(')) {
+        screen.value += "*"; // Add multiplication automatically if a number is followed by a function
     }
 
     // Append the value to the screen
@@ -32,23 +41,23 @@ function deleteLast() {
     }
 }
 
-// Function to evaluate the expression
 function calculate() {
     try {
-        // Automatically close any open brackets if user forgets to close
         if (screen.value.includes('(') && !screen.value.includes(')')) {
-            screen.value += ')';
+            screen.value += ')'; // Automatically close open brackets
         }
 
-        // Replace π with Math.PI and log with Math.log for proper evaluation
+        // Replace π with Math.PI and log with Math.log10 for proper evaluation
         screen.value = screen.value.replace(/π/g, 'Math.PI').replace(/log/g, 'Math.log10');
-        
-        // Using eval to evaluate the expression
+
+        // Evaluate the expression
         screen.value = eval(screen.value);
 
         // After calculating, check if the result is a valid number
         if (isNaN(screen.value)) {
             screen.value = "Error"; // Invalid result
+        } else {
+            screen.dataset.result = "true"; // Mark that a calculation was just completed
         }
     } catch (error) {
         screen.value = "Error"; // Handle any unexpected errors
