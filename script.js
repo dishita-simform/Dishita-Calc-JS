@@ -5,26 +5,25 @@ let memoryDisplay = document.getElementById("memoryDisplay");
 function appendToScreen(value) {
     let screen = document.getElementById("screen");
 
-    // If the screen contains an error, reset it before appending
+    // If screen contains an error, reset it before appending
     if (screen.value === "Error" || screen.value === "NaN") {
         screen.value = '';
     }
 
-    // If the screen contains a result (not an operator) and the user enters a number, clear it
-    if (!isNaN(screen.value) && screen.dataset.result === "true" && !isNaN(value)) {
-        screen.value = ''; // Clear only if a new number is entered after a full calculation
+    let lastChar = screen.value.slice(-1); // Get last character
+
+    // If the last character is an operator and the new value is also an operator, replace it
+    if (isOperator(lastChar) && isOperator(value)) {
+        screen.value = screen.value.slice(0, -1);
     }
 
-    // Reset the result flag
-    screen.dataset.result = "false";
-
-    // Add multiplication between a number and a function like log (but not inside brackets)
-    if (screen.value && /\d$/.test(screen.value) && /log|sin|cos|tan/.test(value) && !screen.value.includes('(')) {
-        screen.value += "*"; // Add multiplication automatically if a number is followed by a function
-    }
-
-    // Append the value to the screen
+    // Append the new value
     screen.value += value;
+}
+
+// Function to check if a character is an operator
+function isOperator(char) {
+    return ['+', '-', '*', '/', '%'].includes(char);
 }
 
 // Clear the screen
@@ -41,6 +40,7 @@ function deleteLast() {
     }
 }
 
+// Evaluate the expression
 function calculate() {
     try {
         if (screen.value.includes('(') && !screen.value.includes(')')) {
@@ -69,7 +69,7 @@ function memoryAdd() {
     try {
         memory += parseFloat(screen.value);
         updateMemoryDisplay();
-        screen.value='';
+        screen.value = '';
     } catch (error) {
         screen.value = "Error";
     }
@@ -79,7 +79,7 @@ function memorySubtract() {
     try {
         memory -= parseFloat(screen.value);
         updateMemoryDisplay();
-        screen.value='';
+        screen.value = '';
     } catch (error) {
         screen.value = "Error";
     }
@@ -89,7 +89,7 @@ function memoryStore() {
     try {
         memory = parseFloat(screen.value);
         updateMemoryDisplay();
-        screen.value='';
+        screen.value = '';
     } catch (error) {
         screen.value = "Error";
     }
@@ -169,7 +169,6 @@ function plusminus() {
 
 // Handle keyboard input
 document.addEventListener("keydown", function(event) {
-    // Check if a number is pressed after a result and clear the screen
     if (event.key >= '0' && event.key <= '9') {
         appendToScreen(event.key);
     } else if (event.key === 'Enter') {
@@ -214,64 +213,46 @@ function appendPi() {
     appendToScreen('π');
 }
 
-// Function to handle the modulo operation
+// Modulo operation
 function mod() {
     try {
-        // Get the current value from the screen
         let input = screen.value;
 
-        // Check if there is a number on the screen and split it based on the operator '%'
         if (!input.includes('%')) {
-            // If there is no '%' operator in the input, append it automatically.
             input += '%';
-            screen.value = input; // Display updated input on the screen
+            screen.value = input;
         } else {
-            // If the '%' operator exists, perform the modulo operation
-            let numbers = input.split('%'); // Split the input into two parts
+            let numbers = input.split('%');
 
             if (numbers.length === 2) {
-                let num1 = parseFloat(numbers[0].trim()); // First number
-                let num2 = parseFloat(numbers[1].trim()); // Second number
+                let num1 = parseFloat(numbers[0].trim());
+                let num2 = parseFloat(numbers[1].trim());
 
-                // Validate if both parts are valid numbers
                 if (isNaN(num1) || isNaN(num2)) {
-                    screen.value = "Error"; // Invalid input
+                    screen.value = "Error";
                 } else {
-                    // Perform modulo operation
-                    let result = num1 % num2;
-                    screen.value = result; // Display the result
+                    screen.value = num1 % num2;
                 }
             } else {
-                screen.value = "Error"; // Invalid format
+                screen.value = "Error";
             }
         }
     } catch (error) {
-        screen.value = "Error"; // Handle any unexpected errors
+        screen.value = "Error";
     }
 }
 
+// Reciprocal function
 function reciprocal() {
     try {
-        let input = screen.value;
-        
-        // Check if the input has any brackets, if so, evaluate the expression inside them first
-        if (input.includes('(') && input.includes(')')) {
-            // Evaluate the expression inside brackets
-            input = input.replace(/\(([^)]+)\)/g, function(match, p1) {
-                return eval(p1); // Evaluate the expression inside the brackets
-            });
-        }
-        
-        // Now that the brackets are evaluated, calculate the reciprocal
-        let value = parseFloat(input); // Convert the evaluated result to a number
-        
-        // Check if the value is zero to avoid division by zero
+        let value = parseFloat(screen.value);
+
         if (value === 0) {
-            screen.value = "Error"; // Display error if value is zero
+            screen.value = "Error";
         } else {
-            screen.value = 1 / value; // Calculate reciprocal and update the screen
+            screen.value = 1 / value;
         }
     } catch (error) {
-        screen.value = "Error"; // Handle any invalid input
+        screen.value = "Error";
     }
 }
